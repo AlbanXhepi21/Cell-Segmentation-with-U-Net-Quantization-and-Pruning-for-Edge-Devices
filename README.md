@@ -28,6 +28,3 @@ Contributions and feedback are welcome! If you find any issues or have suggestio
 
 This project is licensed under the [MIT License](link_to_license). Feel free to use, modify, and distribute the code for academic and non-commercial purposes, with appropriate attribution.
 
-## Acknowledgments
-
-I would like to express my gratitude to [list of contributors, advisors, institutions, etc.] for their support and guidance throughout the development of this project.
