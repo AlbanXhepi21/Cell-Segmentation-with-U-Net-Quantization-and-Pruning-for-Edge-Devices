@@ -1,0 +1,2 @@
+# Cell-Segmentation-with-U-Net-Quantization-and-Pruning-for-Edge-Devices
+This GitHub repository hosts the code and resources for my master's thesis project on cell segmentation using the U-Net architecture. The project focuses on developing a robust segmentation model capable of accurately delineating cell boundaries, with a specific emphasis on deploying the model efficiently on edge computing devices.
