@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     """ Dataset """
     # dataset_path = "DSB/"
-    dataset_path = "our_dataset"
+    dataset_path = "our_dataset/512"
 
     (train_x, train_y), (valid_x, valid_y), (test_x, test_y) = load_data(dataset_path)
 

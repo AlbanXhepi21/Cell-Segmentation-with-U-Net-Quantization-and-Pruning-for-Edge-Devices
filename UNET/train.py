@@ -9,9 +9,10 @@ import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger, ReduceLROnPlateau, EarlyStopping
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.metrics import Recall, Precision
-# from .model import build_unet
-from quantization_model import build_unet_quantized
+from model import build_unet
+# from quantization_model import build_unet_quantized
 from metrics import dice_coef, iou
+from matplotlib import pyplot as plt
 
 H = 256
 W = 256
@@ -86,12 +87,14 @@ if __name__ == "__main__":
     """ Hyperparaqmeters """
     batch_size = 8
     lr = 1e-4   ## 0.0001
-    num_epochs = 15
-    model_path = "saved_models/thp1_dataset_v3_10Epochs.h5"
-    csv_path = "saved_models/thp1_dataset_v3_10Epochs.csv"
+
+    num_epochs = 10
+    model_path = "saved_models/thp1_dataset_v1_10_epochs_256_augmented_data_batch_8.h5"
+    csv_path = "saved_models/thp1_dataset_v1_10_epochs_256_augmented_data_batch_8.csv"
+
 
     """ Dataset """
-    dataset_path = "../THP1_Dataset/"
+    dataset_path = "our_dataset/256_data_augmentation"
     # dataset_path = "our_dataset/"
 
     (train_x, train_y), (valid_x, valid_y), (test_x, test_y) = load_data(dataset_path)
@@ -119,8 +122,8 @@ if __name__ == "__main__":
         valid_steps += 1
 
     """ Model """
-    model = build_unet_quantized((H, W, 3))
-    metrics = [dice_coef, iou, Recall(), Precision()]
+    model = build_unet((H, W, 3))
+    metrics = [dice_coef, iou, Recall(), Precision(), 'accuracy']
     model.compile(loss="binary_crossentropy", optimizer=Adam(lr), metrics=metrics)
 
     callbacks = [
@@ -138,3 +141,34 @@ if __name__ == "__main__":
         validation_steps=valid_steps,
         callbacks=callbacks
     )
+
+    # Read the CSV file
+    # import pandas as pd
+    # import matplotlib.pyplot as plt
+    # data = pd.read_csv("UNET/saved_models/thp1_dataset_v1_15_epochs_512.csv")
+    #
+    # # Extracting data
+    # epochs = data['epoch']
+    # loss = data['loss']
+    # val_loss = data['val_loss']
+    # iou = data['iou']
+    # val_iou = data['val_iou']
+    #
+    # # Plotting loss
+    # plt.plot(epochs, loss, 'y', label='Training loss')
+    # plt.plot(epochs, val_loss, 'r', label='Validation loss')
+    # plt.title('Training and validation loss')
+    # plt.xlabel('Epochs')
+    # plt.ylabel('Loss')
+    # plt.legend()
+    # plt.show()
+    #
+    # # Plotting IoU
+    # plt.plot(epochs, iou, 'y', label='Training IoU')
+    # plt.plot(epochs, val_iou, 'r', label='Validation IoU')
+    # plt.title('Training and validation IoU')
+    # plt.xlabel('Epochs')
+    # plt.ylabel('IoU')
+    # plt.legend()
+    # plt.show()
+    # #################################################
